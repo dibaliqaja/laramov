@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class ViewMovieTest extends TestCase
@@ -39,6 +39,49 @@ class ViewMovieTest extends TestCase
         $response->assertSee('Chris Bender');
         $response->assertSee('Producer');
         $response->assertSee('Liu Yifei');
+    }
+
+    /** @test */
+    public function the_search_dropdown_works_correctly()
+    {
+        Http::fake([
+            'https://api.themoviedb.org/3/search/movie?query=mulan' => $this->fakeSearchMovies(),
+        ]);
+
+        Livewire::test('search-dropdown')
+            ->assertDontSee('mulan')
+            ->set('search', 'mulan')
+            ->assertSee('Mulan');
+    }
+
+    private function fakeSearchMovies()
+    {
+        return Http::response([
+            'results' => [
+                [
+                    "popularity" => 406.677,
+                    "vote_count" => 2607,
+                    "video" => false,
+                    "poster_path" => "/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg",
+                    "id" => 419704,
+                    "adult" => false,
+                    "backdrop_path" => "/5BwqwxMEjeFtdknRV792Svo0K1v.jpg",
+                    "original_language" => "en",
+                    "original_title" => "Mulan",
+                    "genre_ids" => [
+                        12,
+                        18,
+                        9648,
+                        878,
+                        53,
+                    ],
+                    "title" => "Mulan",
+                    "vote_average" => 6,
+                    "overview" => "Fake movie description. The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet earth.",
+                    "release_date" => "2019-09-17",
+                ]
+            ]
+        ], 200);
     }
 
     private function fakePopularMovies()

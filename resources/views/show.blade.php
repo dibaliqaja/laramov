@@ -4,7 +4,11 @@
     <div class="movie-info border-b border-gray-800">
         <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
             <div class="flex-none">
-                <img src="{{ 'https://image.tmdb.org/t/p/w500' . $movie['poster_path'] }}" alt="poster" class="w-64 lg:w-96">
+                @if ($movie['poster_path'])
+                    <img src="{{ 'https://image.tmdb.org/t/p/w500' . $movie['poster_path'] }}" alt="poster" class="w-64 lg:w-96">
+                @else
+                    <img src="https://via.placeholder.com/250x380" alt="poster" class="w-64 lg:w-96">
+                @endif
             </div>
             <div class="md:ml-24">
                 <h2 class="text-4xl font-semibold">{{ $movie['title'] }}</h2>
@@ -59,7 +63,11 @@
                     @if ($loop->index < 5)
                         <div class="mt-8">
                             <a href="#">
-                                <img src="{{ 'https://image.tmdb.org/t/p/w300/.'.$cast['profile_path'] }}" alt="actor1" class="hover:opacity-75 transition ease-in-out duration-150">
+                                @if ($cast['profile_path'])
+                                    <img src="{{ 'https://image.tmdb.org/t/p/w300/.'.$cast['profile_path'] }}" alt="actor1" class="hover:opacity-75 transition ease-in-out duration-150">
+                                @else
+                                    <img src="https://via.placeholder.com/250x375" alt="actor1" class="hover:opacity-75 transition ease-in-out duration-150">
+                                @endif
                             </a>
                             <div class="mt-2">
                                 <a href="#" class="text-lg mt-2 hover:text-gray-300">{{ $cast['name'] }}</a>
