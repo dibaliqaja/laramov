@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="modal-body px-8 py-8">
                                     <div class="responsive-container overflow-hidden relative" style="padding-top: 56.25%">
-                                        <iframe src="https://www.youtube.com/embed/{{ $movie['videos']['results'][0]['key'] }}" frameborder="0" class="responsive-iframe absolute top-0 left-0 w-full h-full" width="560" height="315" style="border: 0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        <iframe src="https://www.youtube.com/embed/{{ $movie['videos']['results'][0]['key'] ?? null }}" frameborder="0" class="responsive-iframe absolute top-0 left-0 w-full h-full" width="560" height="315" style="border: 0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                     </div>
                                 </div>
                             </div>
